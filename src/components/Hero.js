@@ -102,7 +102,16 @@ const Hero = () => {
         >
           <div className="hero-avatar">
             <div className="avatar-placeholder">
-              <span>NR</span>
+              <img 
+                src="/images/profile.png" 
+                alt="Naveen Raw Yadav" 
+                className="profile-image"
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                  e.target.nextSibling.style.display = 'block';
+                }}
+              />
+              <span style={{display: 'none'}}>NR</span>
             </div>
             <div className="avatar-ring"></div>
           </div>
