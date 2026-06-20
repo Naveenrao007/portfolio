@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaLinkedin, FaGithub, FaPaperPlane } from 'react-icons/fa';
+import { motion, AnimatePresence } from 'framer-motion';
+import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaLinkedin, FaGithub, FaPaperPlane, FaCheckCircle, FaExclamationCircle } from 'react-icons/fa';
 import './Contact.css';
 
 const Contact = () => {
@@ -8,82 +8,103 @@ const Contact = () => {
     name: '',
     email: '',
     subject: '',
-    message: ''
+    message: '',
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formStatus, setFormStatus] = useState(null); // null | 'success' | 'error'
+  const [focusedField, setFocusedField] = useState(null);
+
+  const handleFocus = (field) => setFocusedField(field);
+  const handleBlur = () => setFocusedField(null);
 
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        delayChildren: 0.3,
-        staggerChildren: 0.2
-      }
-    }
+      transition: { delayChildren: 0.3, staggerChildren: 0.2 },
+    },
   };
 
   const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1
-    }
+    hidden: { y: 30, opacity: 0 },
+    visible: { y: 0, opacity: 1, transition: { duration: 0.5 } },
   };
 
   const handleInputChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+    if (formStatus) setFormStatus(null);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    // Create mailto link for now
-    const mailtoLink = `mailto:yadavraw123@gmail.com?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(
-      `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
-    )}`;
-    
-    // Open default email client
-    window.location.href = mailtoLink;
-    
-    // Reset form
-    setTimeout(() => {
+    setFormStatus(null);
+
+    const { name, email, subject, message } = formData;
+    if (!name.trim() || !email.trim() || !subject.trim() || !message.trim()) {
       setIsSubmitting(false);
-      setFormData({ name: '', email: '', subject: '', message: '' });
-      alert('Your default email client should open. If not, please email me directly at yadavraw123@gmail.com');
-    }, 1000);
+      setFormStatus('validation');
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setIsSubmitting(false);
+      setFormStatus('email');
+      return;
+    }
+
+    try {
+      // Build mailto link and attempt to open
+      const mailtoLink = `mailto:yadavraw123@gmail.com?subject=${encodeURIComponent(
+        subject
+      )}&body=${encodeURIComponent(
+        `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`
+      )}`;
+
+      window.location.href = mailtoLink;
+
+      setTimeout(() => {
+        setIsSubmitting(false);
+        setFormStatus('success');
+        setFormData({ name: '', email: '', subject: '', message: '' });
+      }, 1000);
+    } catch {
+      setIsSubmitting(false);
+      setFormStatus('error');
+    }
   };
 
   const contactInfo = [
     {
       icon: <FaEnvelope />,
-      title: "Email",
-      value: "yadavraw123@gmail.com",
-      link: "mailto:yadavraw123@gmail.com"
+      title: 'Email',
+      value: 'yadavraw123@gmail.com',
+      link: 'mailto:yadavraw123@gmail.com',
+      color: '#4f46e5',
     },
     {
       icon: <FaPhone />,
-      title: "Phone",
-      value: "+91 8109949129",
-      link: "tel:+918109949129"
+      title: 'Phone',
+      value: '+91 8109949129',
+      link: 'tel:+918109949129',
+      color: '#10b981',
     },
     {
       icon: <FaMapMarkerAlt />,
-      title: "Location",
-      value: "Indore, MP, India",
-      link: "#"
+      title: 'Location',
+      value: 'Indore, MP, India',
+      link: '#',
+      color: '#f59e0b',
     },
     {
       icon: <FaLinkedin />,
-      title: "LinkedIn",
-      value: "Connect with me",
-      link: "https://linkedin.com"
-    }
+      title: 'LinkedIn',
+      value: 'Connect with me',
+      link: 'https://linkedin.com',
+      color: '#0a66c2',
+    },
   ];
 
   return (
@@ -98,30 +119,32 @@ const Contact = () => {
           <motion.h2 className="section-title" variants={itemVariants}>
             Get In Touch
           </motion.h2>
-          
-          <motion.p className="contact-description" variants={itemVariants}>
-            I'm always interested in new opportunities and exciting projects. 
-            Let's discuss how we can work together!
+
+          <motion.p className="section-subtitle" variants={itemVariants}>
+            I'm always interested in new opportunities and exciting projects. Let's talk!
           </motion.p>
 
           <div className="contact-content">
+            {/* Info panel */}
             <motion.div className="contact-info" variants={itemVariants}>
               <h3>Let's Connect</h3>
               <p>
-                Whether you have a project in mind, want to collaborate, or just want to say hello, 
+                Whether you have a project in mind, want to collaborate, or just want to say hello,
                 I'd love to hear from you. Feel free to reach out through any of the channels below.
               </p>
-              
+
               <div className="contact-methods">
                 {contactInfo.map((info, index) => (
                   <motion.a
                     key={index}
                     href={info.link}
                     className="contact-method"
-                    whileHover={{ scale: 1.05 }}
+                    whileHover={{ x: 6 }}
                     variants={itemVariants}
+                    target={info.link.startsWith('http') ? '_blank' : undefined}
+                    rel={info.link.startsWith('http') ? 'noopener noreferrer' : undefined}
                   >
-                    <div className="contact-icon">
+                    <div className="contact-icon" style={{ '--icon-color': info.color }}>
                       {info.icon}
                     </div>
                     <div className="contact-details">
@@ -132,63 +155,146 @@ const Contact = () => {
                 ))}
               </div>
 
-
+              <div className="contact-social-row">
+                <motion.a
+                  href="https://github.com/Naveenrao007"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="social-chip"
+                  whileHover={{ scale: 1.08 }}
+                >
+                  <FaGithub /> GitHub
+                </motion.a>
+                <motion.a
+                  href="https://linkedin.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="social-chip"
+                  whileHover={{ scale: 1.08 }}
+                >
+                  <FaLinkedin /> LinkedIn
+                </motion.a>
+              </div>
             </motion.div>
 
+            {/* Form panel */}
             <motion.div className="contact-form-container" variants={itemVariants}>
-              <form className="contact-form" onSubmit={handleSubmit}>
-                <h3>Send Message</h3>
-                
-                <div className="form-group">
-                  <input
-                    type="text"
-                    name="name"
-                    placeholder="Your Name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    required
-                  />
+              <form className="contact-form" onSubmit={handleSubmit} noValidate>
+                <h3>Send a Message</h3>
+
+                <div className="form-row">
+                  <div className={`form-group ${focusedField === 'name' || formData.name ? 'focused' : ''}`}>
+                    <input
+                      id="name"
+                      type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      onFocus={() => handleFocus('name')}
+                      onBlur={handleBlur}
+                      required
+                    />
+                    <label htmlFor="name">Your Name</label>
+                  </div>
+                  <div className={`form-group ${focusedField === 'email' || formData.email ? 'focused' : ''}`}>
+                    <input
+                      id="email"
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      onFocus={() => handleFocus('email')}
+                      onBlur={handleBlur}
+                      required
+                    />
+                    <label htmlFor="email">Your Email</label>
+                  </div>
                 </div>
 
-                <div className="form-group">
+                <div className={`form-group ${focusedField === 'subject' || formData.subject ? 'focused' : ''}`}>
                   <input
-                    type="email"
-                    name="email"
-                    placeholder="Your Email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </div>
-
-                <div className="form-group">
-                  <input
+                    id="subject"
                     type="text"
                     name="subject"
-                    placeholder="Subject"
                     value={formData.subject}
                     onChange={handleInputChange}
+                    onFocus={() => handleFocus('subject')}
+                    onBlur={handleBlur}
                     required
                   />
+                  <label htmlFor="subject">Subject</label>
                 </div>
 
-                <div className="form-group">
+                <div className={`form-group ${focusedField === 'message' || formData.message ? 'focused' : ''}`}>
                   <textarea
+                    id="message"
                     name="message"
-                    placeholder="Your Message"
                     rows="5"
                     value={formData.message}
                     onChange={handleInputChange}
+                    onFocus={() => handleFocus('message')}
+                    onBlur={handleBlur}
                     required
                   ></textarea>
+                  <label htmlFor="message">Message</label>
                 </div>
+
+                {/* Inline status message */}
+                <AnimatePresence>
+                  {formStatus === 'success' && (
+                    <motion.div
+                      className="form-status success"
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0 }}
+                    >
+                      <FaCheckCircle />
+                      Your email client should open now! If not, email me directly at{' '}
+                      <a href="mailto:yadavraw123@gmail.com">yadavraw123@gmail.com</a>
+                    </motion.div>
+                  )}
+                  {formStatus === 'validation' && (
+                    <motion.div
+                      className="form-status error"
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0 }}
+                    >
+                      <FaExclamationCircle />
+                      All fields are required. Please fill in all fields before sending.
+                    </motion.div>
+                  )}
+                  {formStatus === 'email' && (
+                    <motion.div
+                      className="form-status error"
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0 }}
+                    >
+                      <FaExclamationCircle />
+                      Please enter a valid email address.
+                    </motion.div>
+                  )}
+                  {formStatus === 'error' && (
+                    <motion.div
+                      className="form-status error"
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0 }}
+                    >
+                      <FaExclamationCircle />
+                      Something went wrong. Please email me directly at{' '}
+                      <a href="mailto:yadavraw123@gmail.com">yadavraw123@gmail.com</a>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
 
                 <motion.button
                   type="submit"
                   className="btn btn-primary submit-btn"
                   disabled={isSubmitting}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
                 >
                   {isSubmitting ? (
                     <>

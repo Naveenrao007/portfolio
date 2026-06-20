@@ -61,23 +61,23 @@ const About = () => {
           
           <div className="about-content">
             <motion.div className="about-text" variants={itemVariants}>
-              <h3>Passionate MERN Stack Developer</h3>
+              <h3>Passionate Full Stack Developer</h3>
               <p>
-                I'm a dedicated MERN stack developer with 2.5+ years of experience building 
-                robust web applications. My strong foundation in Information Technology and 
-                Mathematics has shaped my analytical approach to problem-solving.
+                I am a dedicated Full Stack Engineer with 3+ years of experience building 
+                high-performance web applications. Combining a strong foundation in IT and Mathematics, 
+                I bring an analytical, logic-driven approach to solving complex technical challenges.
               </p>
               <p>
-                I specialize in creating responsive, user-friendly interfaces and scalable 
-                backend systems across financial services, ERP systems, and e-commerce platforms. 
-                I'm passionate about writing clean, efficient code and continuous learning.
+                I specialize in crafting responsive user interfaces and architecting scalable backend systems 
+                across financial services, ERP platforms, and e-commerce applications—always focused on 
+                writing clean, maintainable code and continuous learning.
               </p>
               
             </motion.div>
 
             <motion.div className="about-stats" variants={itemVariants}>
               <div className="stat-item">
-                <div className="stat-number">2.5+</div>
+                <div className="stat-number">3+</div>
                 <div className="stat-label">Years Experience</div>
               </div>
               <div className="stat-item">

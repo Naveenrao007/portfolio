@@ -1,191 +1,175 @@
 .experience {
   background: linear-gradient(135deg, rgba(79, 70, 229, 0.05), rgba(6, 182, 212, 0.05));
+  padding: 100px 0;
 }
 
-.experience-description {
+.experience-subtitle {
   text-align: center;
   color: #a1a1aa;
   font-size: 1rem;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
   max-width: 500px;
   margin-left: auto;
   margin-right: auto;
 }
 
-.timeline {
-  position: relative;
+/* Tabs Container Layout */
+.experience-tabs-container {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 3rem;
   max-width: 900px;
   margin: 0 auto;
-  padding: 1.5rem 0;
+  min-height: 380px;
 }
 
-.timeline::before {
-  content: '';
+/* Tabs Left Menu */
+.experience-tabs {
+  display: flex;
+  flex-direction: column;
+  border-left: 2px solid rgba(255, 255, 255, 0.06);
+  position: relative;
+  height: fit-content;
+}
+
+.tab-btn {
+  background: transparent;
+  border: none;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-align: left;
+  padding: 14px 20px;
+  color: #8f9ba8;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  position: relative;
+  width: 100%;
+}
+
+.tab-btn:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.tab-btn.active {
+  color: #a78bfa;
+  background: rgba(99, 102, 241, 0.06);
+  font-weight: 600;
+}
+
+/* Active indicator vertical line */
+.active-indicator-desktop {
   position: absolute;
-  left: 50%;
+  left: -2px;
   top: 0;
   bottom: 0;
   width: 2px;
   background: linear-gradient(to bottom, #4f46e5, #06b6d4);
-  transform: translateX(-50%);
-}
-
-.timeline-item {
-  position: relative;
-  margin-bottom: 2rem;
-  width: 50%;
-}
-
-.timeline-item.left {
-  left: 0;
-  padding-right: 1.5rem;
-}
-
-.timeline-item.right {
-  left: 50%;
-  padding-left: 1.5rem;
-}
-
-.timeline-item::before {
-  content: '';
-  position: absolute;
-  top: 1rem;
-  width: 15px;
-  height: 15px;
-  background: linear-gradient(135deg, #4f46e5, #06b6d4);
-  border-radius: 50%;
-  border: 3px solid #0a0a0a;
   z-index: 2;
 }
 
-.timeline-item.left::before {
-  right: -7.5px;
-}
-
-.timeline-item.right::before {
-  left: -7.5px;
-}
-
-.timeline-content {
-  background: rgba(255, 255, 255, 0.05);
+/* Tab Panel content area */
+.experience-tab-content {
+  background: rgba(255, 255, 255, 0.03);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 15px;
-  padding: 1.5rem;
-  transition: all 0.3s ease;
-  position: relative;
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
-.timeline-content:hover {
-  transform: translateY(-5px);
-  border-color: rgba(79, 70, 229, 0.3);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-}
-
-.experience-header {
+.tab-panel {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
 }
 
-.experience-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-}
-
-.experience-left {
-  flex: 1;
-}
-
-.experience-right {
-  display: flex;
-  align-items: center;
-}
-
-.experience-left h3 {
-  font-size: 1.1rem;
+.panel-header h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
   color: #ffffff;
-  margin: 0;
-  background: linear-gradient(135deg, #4f46e5, #06b6d4);
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+}
+
+.at-symbol {
+  color: #4f46e5;
+  margin: 0 0.25rem;
+}
+
+.company-highlight {
+  background: linear-gradient(135deg, #a78bfa, #38bdf8);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  font-weight: 700;
 }
 
-.company-name {
-  font-size: 1rem;
-  color: #4f46e5;
-  font-weight: 600;
-}
-
-.experience-right span {
+.panel-meta {
   display: flex;
-  align-items: center;
-  gap: 0.3rem;
-  color: #a1a1aa;
-  font-size: 0.9rem;
-}
-
-.experience-type {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: rgba(79, 70, 229, 0.1);
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  color: #4f46e5;
-  font-size: 0.9rem;
+  gap: 1.5rem;
+  font-size: 0.85rem;
+  color: #71717a;
+  margin-bottom: 1.2rem;
   font-weight: 500;
 }
 
-.experience-description-text {
+.panel-meta span {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.panel-meta svg {
+  color: #4f46e5;
+}
+
+.panel-description {
   color: #a1a1aa;
-  margin-bottom: 1rem;
+  font-size: 0.92rem;
   line-height: 1.5;
-  font-size: 0.9rem;
+  margin-bottom: 1.25rem;
+  border-left: 2px solid rgba(6, 182, 212, 0.3);
+  padding-left: 12px;
 }
 
-.responsibilities {
-  margin-bottom: 1rem;
+.panel-responsibilities {
+  margin-bottom: 1.25rem;
 }
 
-.responsibilities h4 {
-  color: #ffffff;
+.panel-responsibilities h4,
+.panel-technologies h4 {
+  color: #e2e8f0;
   font-size: 0.9rem;
+  font-weight: 600;
   margin-bottom: 0.6rem;
 }
 
-.responsibilities ul {
+.panel-responsibilities ul {
   list-style: none;
   padding: 0;
 }
 
-.responsibilities li {
-  color: #a1a1aa;
-  margin-bottom: 0.3rem;
-  padding-left: 1.2rem;
-  position: relative;
-  line-height: 1.4;
+.panel-responsibilities li {
+  color: #94a3b8;
   font-size: 0.85rem;
+  line-height: 1.5;
+  margin-bottom: 0.5rem;
+  padding-left: 1.25rem;
+  position: relative;
 }
 
-.responsibilities li::before {
-  content: '▶';
+.panel-responsibilities li::before {
+  content: '▹';
   position: absolute;
   left: 0;
-  color: #4f46e5;
-  font-size: 0.8rem;
+  color: #a78bfa;
+  font-size: 1rem;
+  line-height: 1;
 }
 
-.technologies h4 {
-  color: #ffffff;
-  font-size: 0.9rem;
-  margin-bottom: 0.6rem;
-}
-
+/* Technologies tags inside panel */
 .tech-tags {
   display: flex;
   flex-wrap: wrap;
@@ -193,241 +177,139 @@
 }
 
 .tech-tag {
-  background: rgba(79, 70, 229, 0.1);
-  color: #4f46e5;
-  padding: 0.2rem 0.6rem;
+  background: rgba(79, 70, 229, 0.08);
+  color: #a78bfa;
+  padding: 4px 10px;
   border-radius: 12px;
   font-size: 0.75rem;
   font-weight: 500;
-  border: 1px solid rgba(79, 70, 229, 0.2);
+  border: 1px solid rgba(79, 70, 229, 0.15);
+  transition: all 0.2s ease;
 }
 
+.tech-tag:hover {
+  background: rgba(79, 70, 229, 0.15);
+  border-color: rgba(79, 70, 229, 0.3);
+}
+
+/* Experience Summary */
 .experience-summary {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem;
-  margin-top: 2rem;
+  margin-top: 3.5rem;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .summary-card {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 15px;
-  padding: 1.5rem;
-  text-align: center;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 14px;
+  padding: 1.25rem 1.5rem;
   transition: all 0.3s ease;
 }
 
 .summary-card:hover {
-  transform: translateY(-5px);
-  border-color: rgba(79, 70, 229, 0.3);
+  transform: translateY(-4px);
+  border-color: rgba(99, 102, 241, 0.2);
 }
 
 .summary-card h4 {
-  font-size: 1.1rem;
-  margin-bottom: 0.8rem;
+  font-size: 1rem;
+  margin-bottom: 0.4rem;
   color: #ffffff;
-  background: linear-gradient(135deg, #4f46e5, #06b6d4);
+  background: linear-gradient(135deg, #a78bfa, #38bdf8);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  font-weight: 600;
 }
 
 .summary-card p {
-  color: #a1a1aa;
-  line-height: 1.5;
-  font-size: 0.9rem;
+  color: #71717a;
+  line-height: 1.45;
+  font-size: 0.85rem;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .timeline::before {
-    left: 2rem;
+  .experience {
+    padding: 60px 0;
   }
 
-  .timeline-item {
+  .experience-tabs-container {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    min-height: auto;
+  }
+
+  .experience-tabs {
+    flex-direction: row;
+    border-left: none;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.06);
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 2px;
+    scrollbar-width: none;
+  }
+
+  .experience-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tab-btn {
+    text-align: center;
+    width: auto;
+    padding: 10px 16px;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+  }
+
+  .active-indicator-desktop {
+    left: 0;
+    right: 0;
+    bottom: -2px;
+    top: auto;
     width: 100%;
-    left: 0 !important;
-    padding-left: 4rem !important;
-    padding-right: 0 !important;
+    height: 2px;
+    background: linear-gradient(to right, #4f46e5, #06b6d4);
   }
 
-  .timeline-item::before {
-    left: 1.25rem !important;
-    right: auto !important;
+  .experience-tab-content {
+    padding: 1.25rem;
+    border-radius: 12px;
   }
 
-  .experience-header {
-    flex-direction: column;
-    align-items: flex-start;
+  .panel-header h3 {
+    font-size: 1.1rem;
   }
 
-  .experience-row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.3rem;
+  .panel-meta {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.2rem;
+    margin-bottom: 1rem;
   }
 
-  .experience-right {
-    align-self: flex-end;
+  .panel-description {
+    font-size: 0.85rem;
+    padding-left: 8px;
   }
 
-  .experience-details {
-    align-items: flex-start;
-    text-align: left;
-  }
-
-  .timeline-content {
-    padding: 0.6rem;
-  }
-
-  .experience-header {
-    gap: 0.3rem;
-    margin-bottom: 0.3rem;
-  }
-
-  .experience-left h3 {
-    font-size: 0.9rem;
-  }
-
-  .company-name {
+  .panel-responsibilities li {
     font-size: 0.8rem;
-  }
-
-  .experience-right span {
-    font-size: 0.75rem;
-  }
-
-  .experience-description-text {
-    font-size: 0.8rem;
-    margin-bottom: 0.3rem;
-    line-height: 1.2;
-  }
-
-  .responsibilities h4 {
-    font-size: 0.8rem;
-    margin-bottom: 0.2rem;
-  }
-
-  .responsibilities li {
-    font-size: 0.75rem;
-    margin-bottom: 0.1rem;
-    line-height: 1.2;
-  }
-
-  .technologies h4 {
-    font-size: 0.8rem;
-    margin-bottom: 0.2rem;
-  }
-
-  .tech-tag {
-    font-size: 0.65rem;
-    padding: 0.15rem 0.3rem;
+    padding-left: 1.1rem;
   }
 
   .experience-summary {
     grid-template-columns: 1fr;
-    gap: 1rem;
+    gap: 1.2rem;
+    margin-top: 2rem;
   }
 
   .summary-card {
-    padding: 1rem;
-  }
-
-  .summary-card h4 {
-    font-size: 1rem;
-    margin-bottom: 0.4rem;
-  }
-
-  .summary-card p {
-    font-size: 0.85rem;
-    line-height: 1.3;
-  }
-}
-
-@media (max-width: 480px) {
-  .timeline {
-    padding: 1rem 0;
-  }
-
-  .timeline-item {
-    padding-left: 3rem !important;
-  }
-
-  .timeline-item::before {
-    left: 0.75rem !important;
-    width: 12px;
-    height: 12px;
-  }
-
-  .timeline-content {
-    padding: 0.5rem;
-  }
-
-  .experience-header {
-    gap: 0.2rem;
-    margin-bottom: 0.2rem;
-  }
-
-  .experience-left h3 {
-    font-size: 0.85rem;
-  }
-
-  .company-name {
-    font-size: 0.75rem;
-  }
-
-  .experience-right span {
-    font-size: 0.7rem;
-  }
-
-  .experience-description-text {
-    font-size: 0.75rem;
-    margin-bottom: 0.3rem;
-    line-height: 1.2;
-  }
-
-  .responsibilities h4 {
-    font-size: 0.75rem;
-    margin-bottom: 0.2rem;
-  }
-
-  .responsibilities li {
-    font-size: 0.7rem;
-    margin-bottom: 0.1rem;
-    line-height: 1.1;
-  }
-
-  .technologies h4 {
-    font-size: 0.75rem;
-    margin-bottom: 0.2rem;
-  }
-
-  .tech-tags {
-    gap: 0.2rem;
-  }
-
-  .tech-tag {
-    font-size: 0.6rem;
-    padding: 0.1rem 0.25rem;
-  }
-
-  .experience-summary {
-    gap: 0.8rem;
-  }
-
-  .summary-card {
-    padding: 0.8rem;
-  }
-
-  .summary-card h4 {
-    font-size: 0.95rem;
-    margin-bottom: 0.3rem;
-  }
-
-  .summary-card p {
-    font-size: 0.8rem;
-    line-height: 1.3;
+    padding: 1.25rem;
   }
 }

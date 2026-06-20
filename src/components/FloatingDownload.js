@@ -50,9 +50,23 @@ const FloatingDownload = () => {
     setIsVisible(false);
   };
 
-  const handleDownload = () => {
-    // Track download if needed
-    console.log('Resume downloaded');
+  const handleDownload = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('/Naveen_Raw_Yadav_resume.pdf');
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'Naveen_Raw_Yadav_Resume.pdf');
+      document.body.appendChild(link);
+      link.click();
+      link.parentNode.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error('Download failed', error);
+      window.open('/Naveen_Raw_Yadav_resume.pdf', '_blank');
+    }
   };
 
   // Don't render on small screens

@@ -63,8 +63,8 @@ const Skills = () => {
     {
       title: "Database",
       skills: [
-        { name: "MongoDB", icon: <SiMongodb />, level: 85 },
-        { name: "PostgreSQL", icon: <SiPostgresql />, level: 75 },
+        { name: "PostgreSQL", icon: <SiPostgresql />, level: 85 },
+        { name: "MongoDB", icon: <SiMongodb />, level: 75 },
         { name: "Mongoose ODM", icon: <FaDatabase />, level: 80 }
       ]
     },
@@ -139,11 +139,11 @@ const Skills = () => {
 
           <motion.div className="skills-summary" variants={itemVariants}>
             <div className="summary-card">
-              <h4>MERN Stack Specialist</h4>
+              <h4>Full Stack Specialist</h4>
               <p>
-                Proficient in the complete MERN stack with hands-on experience in building 
-                full-stack applications from scratch. Strong understanding of modern 
-                development practices and agile methodologies.
+                Proficient in modern full-stack development with hands-on experience in building 
+                scalable web applications from scratch. Strong understanding of database systems, 
+                clean architecture, and agile methodologies.
               </p>
             </div>
             <div className="summary-card">

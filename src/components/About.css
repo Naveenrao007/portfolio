@@ -18,9 +18,9 @@
 }
 
 .about-text p {
-  color: #a1a1aa;
+  color: #94a3b8;
   margin-bottom: 0.8rem;
-  line-height: 1.5;
+  line-height: 1.7;
   font-size: 0.95rem;
 }
 
@@ -64,8 +64,8 @@
 }
 
 .stat-label {
-  color: #a1a1aa;
-  font-size: 0.9rem;
+  color: #94a3b8;
+  font-size: 0.82rem;
   font-weight: 500;
 }
 
@@ -120,9 +120,9 @@
 }
 
 .feature-card p {
-  color: #a1a1aa;
-  line-height: 1.5;
-  font-size: 0.8rem;
+  color: #94a3b8;
+  line-height: 1.6;
+  font-size: 0.82rem;
 }
 
 @media (max-width: 768px) {

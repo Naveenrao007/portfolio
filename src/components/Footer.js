@@ -1,10 +1,14 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FaHeart, FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa';
+import { FaHeart, FaGithub, FaLinkedin, FaEnvelope, FaArrowUp } from 'react-icons/fa';
 import './Footer.css';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
     <footer className="footer">
@@ -22,15 +26,16 @@ const Footer = () => {
                 <span className="gradient-text">Naveen Raw Yadav</span>
               </h3>
               <p className="footer-description">
-                MERN Stack Developer passionate about creating innovative web applications 
+                MERN Stack Developer passionate about creating innovative web applications
                 and turning ideas into reality.
               </p>
               <div className="footer-social">
                 <motion.a
-                  href="https://github.com"
+                  href="https://github.com/Naveenrao007"
                   target="_blank"
                   rel="noopener noreferrer"
-                  whileHover={{ scale: 1.2, y: -5 }}
+                  whileHover={{ scale: 1.15, y: -3 }}
+                  title="GitHub"
                 >
                   <FaGithub />
                 </motion.a>
@@ -38,13 +43,15 @@ const Footer = () => {
                   href="https://linkedin.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  whileHover={{ scale: 1.2, y: -5 }}
+                  whileHover={{ scale: 1.15, y: -3 }}
+                  title="LinkedIn"
                 >
                   <FaLinkedin />
                 </motion.a>
                 <motion.a
                   href="mailto:yadavraw123@gmail.com"
-                  whileHover={{ scale: 1.2, y: -5 }}
+                  whileHover={{ scale: 1.15, y: -3 }}
+                  title="Email"
                 >
                   <FaEnvelope />
                 </motion.a>
@@ -67,8 +74,8 @@ const Footer = () => {
                 <ul>
                   <li><a href="#projects">Projects</a></li>
                   <li><a href="#contact">Contact</a></li>
-                  <li><a href="mailto:yadavraw123@gmail.com">Email</a></li>
-                  <li><a href="tel:+918109949129">Phone</a></li>
+                  <li><a href="mailto:yadavraw123@gmail.com">Email Me</a></li>
+                  <li><a href="tel:+918109949129">Call Me</a></li>
                 </ul>
               </div>
 
@@ -87,12 +94,22 @@ const Footer = () => {
           <div className="footer-bottom">
             <div className="footer-copyright">
               <p>
-                @{currentYear} Naveen Raw Yadav
+                &copy; {currentYear} Naveen Raw Yadav &mdash; Made with{' '}
+                <FaHeart className="heart-icon" /> in India
               </p>
             </div>
             <div className="footer-location">
               <p>📍 Indore, MP, India</p>
             </div>
+            <motion.button
+              className="back-to-top"
+              onClick={scrollToTop}
+              whileHover={{ scale: 1.1, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+              title="Back to top"
+            >
+              <FaArrowUp />
+            </motion.button>
           </div>
         </motion.div>
       </div>
