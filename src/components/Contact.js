@@ -249,8 +249,10 @@ const Contact = () => {
                       exit={{ opacity: 0 }}
                     >
                       <FaCheckCircle />
-                      Your email client should open now! If not, email me directly at{' '}
-                      <a href="mailto:yadavraw123@gmail.com">yadavraw123@gmail.com</a>
+                      <div className="form-status-text">
+                        Your email client should open now! If not, email me directly at{' '}
+                        <a href="mailto:yadavraw123@gmail.com">yadavraw123@gmail.com</a>
+                      </div>
                     </motion.div>
                   )}
                   {formStatus === 'validation' && (
@@ -261,7 +263,9 @@ const Contact = () => {
                       exit={{ opacity: 0 }}
                     >
                       <FaExclamationCircle />
-                      All fields are required. Please fill in all fields before sending.
+                      <div className="form-status-text">
+                        All fields are required. Please fill in all fields before sending.
+                      </div>
                     </motion.div>
                   )}
                   {formStatus === 'email' && (
@@ -272,7 +276,9 @@ const Contact = () => {
                       exit={{ opacity: 0 }}
                     >
                       <FaExclamationCircle />
-                      Please enter a valid email address.
+                      <div className="form-status-text">
+                        Please enter a valid email address.
+                      </div>
                     </motion.div>
                   )}
                   {formStatus === 'error' && (
@@ -283,8 +289,10 @@ const Contact = () => {
                       exit={{ opacity: 0 }}
                     >
                       <FaExclamationCircle />
-                      Something went wrong. Please email me directly at{' '}
-                      <a href="mailto:yadavraw123@gmail.com">yadavraw123@gmail.com</a>
+                      <div className="form-status-text">
+                        Something went wrong. Please email me directly at{' '}
+                        <a href="mailto:yadavraw123@gmail.com">yadavraw123@gmail.com</a>
+                      </div>
                     </motion.div>
                   )}
                 </AnimatePresence>
