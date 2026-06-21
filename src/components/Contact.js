@@ -14,6 +14,7 @@ const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formStatus, setFormStatus] = useState(null); // null | 'success' | 'error'
   const [focusedField, setFocusedField] = useState(null);
+  const [cooldownRemaining, setCooldownRemaining] = useState(0);
 
   const handleFocus = (field) => setFocusedField(field);
   const handleBlur = () => setFocusedField(null);
@@ -41,6 +42,18 @@ const Contact = () => {
     setIsSubmitting(true);
     setFormStatus(null);
 
+    // Rate Limiting (60 seconds cooldown)
+    const lastSubmit = localStorage.getItem('lastContactSubmission');
+    const now = Date.now();
+    const cooldownPeriod = 60 * 1000;
+    if (lastSubmit && now - parseInt(lastSubmit) < cooldownPeriod) {
+      const remaining = Math.ceil((cooldownPeriod - (now - parseInt(lastSubmit))) / 1000);
+      setCooldownRemaining(remaining);
+      setFormStatus('rate-limit');
+      setIsSubmitting(false);
+      return;
+    }
+
     const { name, email, subject, message } = formData;
     if (!name.trim() || !email.trim() || !subject.trim() || !message.trim()) {
       setIsSubmitting(false);
@@ -64,6 +77,7 @@ const Contact = () => {
       )}`;
 
       window.location.href = mailtoLink;
+      localStorage.setItem('lastContactSubmission', Date.now().toString());
 
       setTimeout(() => {
         setIsSubmitting(false);
@@ -292,6 +306,19 @@ const Contact = () => {
                       <div className="form-status-text">
                         Something went wrong. Please email me directly at{' '}
                         <a href="mailto:yadavraw123@gmail.com">yadavraw123@gmail.com</a>
+                      </div>
+                    </motion.div>
+                  )}
+                  {formStatus === 'rate-limit' && (
+                    <motion.div
+                      className="form-status error"
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0 }}
+                    >
+                      <FaExclamationCircle />
+                      <div className="form-status-text">
+                        Too many messages. Please wait {cooldownRemaining}s before sending another request.
                       </div>
                     </motion.div>
                   )}
